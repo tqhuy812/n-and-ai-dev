@@ -3,7 +3,7 @@
 {
 	"name": "Device Config Dev Container",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "ghcr.io/srl-labs/containerlab/devcontainer-dind-slim:0.71.0",
+	"image": "ghcr.io/srl-labs/containerlab/devcontainer-dind:0.71.0",
     "hostRequirements": {
         "cpus": 4, 
         "memory": "8gb",
