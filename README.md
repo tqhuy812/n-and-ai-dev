@@ -1,5 +1,11 @@
 # n-and-ai-dev
 
+## Install gnmic (RUN THIS STEP if using slim image (e.g., "image": "ghcr.io/srl-labs/containerlab/devcontainer-dind-slim:0.71.0",))
+
+```
+bash -c "$(curl -sL https://get-gnmic.openconfig.net)"
+```
+
 ## Verify shortest path
 
 From client1
@@ -45,12 +51,6 @@ Execute the following cmd on a different terminal to simulate the packet loss ev
 
 ```
 containerlab tools netem set -n clab-3srlinux_2clients-srlinux1 -i e1-2 --loss 99
-```
-
-## Install gnmic if necessary
-
-```
-bash -c "$(curl -sL https://get-gnmic.openconfig.net)"
 ```
 
 ## Prompt for reroute
