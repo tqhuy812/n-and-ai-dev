@@ -31,11 +31,11 @@
 				"servers": {
 					"filesystem": {
 						"command": "npx",
-						"args": ["-y", "@modelcontextprotocol/server-filesystem", "/workspaces/clab-manager/"]
+						"args": ["-y", "@modelcontextprotocol/server-filesystem", "/workspaces/n-and-ai-dev/"]
 					},
                     "deviceconfig": {
 						"command": "python",
-						"args": ["deviceconfig.py"]
+						"args": ["/workspaces/n-and-ai-dev/deviceconfig.py"]
 					}
 				}
 			}
