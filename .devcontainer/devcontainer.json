@@ -1,0 +1,62 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "Device Config Dev Container",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "ghcr.io/srl-labs/containerlab/devcontainer-dind-slim:0.71.0",
+    "hostRequirements": {
+        "cpus": 4, 
+        "memory": "8gb",
+        "storage": "15gb"
+    },
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {}
+	},
+
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			"settings": {},
+			"extensions": [
+					"streetsidesoftware.code-spell-checker",
+					"srl-labs.vscode-containerlab",
+					"GitHub.copilot"
+			],
+			// Add mcp servers
+			"mcp": {
+				"servers": {
+					"filesystem": {
+						"command": "npx",
+						"args": ["-y", "@modelcontextprotocol/server-filesystem", "/workspaces/clab-manager/"]
+					},
+                    "deviceconfig": {
+						"command": "python",
+						"args": ["deviceconfig.py"]
+					}
+				}
+			}
+		}
+	},
+	
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [9000],
+
+	// Use 'portsAttributes' to set default properties for specific forwarded ports. 
+	// More info: https://containers.dev/implementors/json_reference/#port-attributes
+	"portsAttributes": {
+		"9000": {
+			"label": "Hello Remote World",
+			"onAutoForward": "notify"
+		}
+	},
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "pip install -r requirements.txt && npm install -g @modelcontextprotocol/server-filesystem",
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
