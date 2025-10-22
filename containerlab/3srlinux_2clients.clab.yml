@@ -1,0 +1,108 @@
+name: 3srlinux_2clients
+
+mgmt:
+  network: 3srlinux_2clients_lab # management network name
+  ipv4-subnet: 172.100.108.0/24
+
+topology:
+  nodes:
+    srlinux1:
+      mgmt-ipv4: 172.100.108.4
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:24.10.1
+      type: ixr-d3l
+      startup-config: config/cli/srlinux1.cfg
+    srlinux2:
+      mgmt-ipv4: 172.100.108.5
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:24.10.1
+      type: ixr-d3l
+      startup-config: config/cli/srlinux2.cfg
+    srlinux3:
+      mgmt-ipv4: 172.100.108.6
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:24.10.1
+      type: ixr-d3l
+      startup-config: config/cli/srlinux3.cfg
+
+    client1:
+      mgmt-ipv4: 172.100.108.7
+      kind: linux
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - ip addr add 10.0.1.2/30 dev eth1
+        - ip r add 10.0.2.0/30 via 10.0.1.1
+        - ip r add 192.168.10.0/24 via 10.0.1.1
+        - ip r add 192.168.20.0/24 via 10.0.1.1
+    client2:
+      mgmt-ipv4: 172.100.108.8
+      kind: linux
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - ip addr add 10.0.2.2/30 dev eth1
+        - ip r add 10.0.1.0/30 via 10.0.2.1
+        - ip r add 192.168.10.0/24 via 10.0.2.1
+        - ip r add 192.168.20.0/24 via 10.0.2.1
+
+        ### TELEMETRY STACK ###
+    gnmic:
+      kind: linux
+      mgmt-ipv4: 172.100.108.41
+      image: ghcr.io/openconfig/gnmic:0.39.1
+      binds:
+        - config/gnmic/gnmic-config.yml:/gnmic-config.yml:ro
+      cmd: --config /gnmic-config.yml --log subscribe
+      group: "10"
+
+    prometheus:
+      kind: linux
+      mgmt-ipv4: 172.100.108.42
+      image: quay.io/prometheus/prometheus:v2.54.1
+      binds:
+        - config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+        - config/prometheus/rules.yml:/etc/prometheus/rules.yml:ro
+      cmd: --config.file=/etc/prometheus/prometheus.yml
+      ports:
+        - 9090:9090
+      group: "10"
+
+    alertmanager:
+      kind: linux
+      mgmt-ipv4: 172.100.108.44
+      image: docker.io/prom/alertmanager
+      binds:
+        - config/prometheus/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      cmd: --config.file=/etc/alertmanager/alertmanager.yml
+        --cluster.advertise-address=0.0.0.0:9093
+      ports:
+        - 9093:9093
+      group: "10"
+
+    grafana:
+      kind: linux
+      mgmt-ipv4: 172.100.108.43
+      image: grafana/grafana:11.2.0
+      binds:
+        - config/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
+        - config/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
+        - config/grafana/dashboards:/var/lib/grafana/dashboards
+      ports:
+        - 3000:3000
+      env:
+        GF_INSTALL_PLUGINS: "andrewbmchugh-flow-panel"
+        # env vars to enable anonymous access
+        GF_ORG_ROLE: "Admin"
+        GF_ORG_NAME: "Main Org"
+        GF_AUTH_ANONYMOUS_ENABLED: "true"
+        GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+        GF_AUTH_ANONYMOUS: "true"
+        GF_AUTH_OAUTH_AUTO_LOGIN: "true"
+      group: "10"
+
+  links:
+    - endpoints: [ client1:eth1, srlinux1:e1-1 ]
+    - endpoints: [ srlinux2:e1-1, client2:eth1 ]
+    - endpoints: [ srlinux1:e1-2, srlinux2:e1-2 ]
+    - endpoints: [ srlinux1:e1-3, srlinux3:e1-1 ]
+    - endpoints: [ srlinux2:e1-3, srlinux3:e1-2 ]
+

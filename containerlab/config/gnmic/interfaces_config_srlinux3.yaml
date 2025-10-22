@@ -1,0 +1,22 @@
+interface:
+- admin-state: enable
+  name: ethernet-1/1
+  subinterface:
+    - admin-state: enable
+      description: To srlinux1
+      index: 0
+      ipv4:
+        admin-state: enable
+        address:
+          ip-prefix: 10.0.13.1/31
+
+- admin-state: enable
+  name: ethernet-1/2
+  subinterface:
+    - admin-state: enable
+      description: To srlinux3
+      index: 0
+      ipv4:
+        admin-state: enable
+        address:
+          ip-prefix: 10.0.23.1/31

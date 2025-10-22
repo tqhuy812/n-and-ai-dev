@@ -1,0 +1,12 @@
+username: admin
+password: NokiaSrl1!
+port: 57400
+timeout: 10s
+skip-verify: true
+encoding: json_ietf
+
+# targets:
+  # clab-3srlinux_2clients-srlinux1:57400:
+  # clab-3srlinux_2clients-srlinux2:57400:
+  # clab-3srlinux_2clients-srlinux3:57400:
+

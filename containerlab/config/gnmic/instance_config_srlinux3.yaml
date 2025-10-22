@@ -1,0 +1,24 @@
+network-instance:
+  - name: default
+    admin-state: enable
+    interface: 
+      - name: ethernet-1/1.0
+      - name: ethernet-1/2.0
+
+    next-hop-groups:
+      group: 
+        - name: client1
+          nexthop:
+            - index: 0
+              ip-address: 10.0.13.0
+        - name: client2
+          nexthop:
+            - index: 0
+              ip-address: 10.0.23.0  
+
+    static-routes:
+      route: 
+        - prefix: 10.0.1.0/30
+          next-hop-group: client1
+        - prefix: 10.0.2.0/30
+          next-hop-group: client2

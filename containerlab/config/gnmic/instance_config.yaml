@@ -1,0 +1,6 @@
+network-instance:
+  - name: default
+    admin-state: enable
+    interface: 
+      - name: ethernet-1/1.0
+      - name: ethernet-1/2.0

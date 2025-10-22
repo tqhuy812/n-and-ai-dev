@@ -1,0 +1,19 @@
+network-instance:
+- name: default
+
+  next-hop-groups:
+    group: 
+      - name: client1
+        nexthop:
+          - index: 1
+            ip-address: 10.0.23.1
+            # failure-detection:
+              # enable-bfd:
+                # local-address: 10.0.23.0
+
+  static-routes:
+    route: 
+      - prefix: 10.0.1.0/30
+        next-hop-group: client1
+      - prefix: 192.168.10.0/24
+        next-hop-group: client1

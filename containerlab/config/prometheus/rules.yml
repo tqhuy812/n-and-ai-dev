@@ -1,0 +1,6 @@
+groups:
+ - name: BFD status is not up
+   rules:
+   - alert: BFDStatusNotUp
+     expr: bfd_network_instance_peer_session_state != 2
+     for: 5s
