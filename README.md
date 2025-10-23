@@ -1,5 +1,6 @@
 # n-and-ai-dev
 
+
 ## Install gnmic (RUN THIS STEP if using slim image (e.g., "image": "ghcr.io/srl-labs/containerlab/devcontainer-dind-slim:0.71.0",))
 
 ```
@@ -62,3 +63,7 @@ Configure srlinux1 with /workspaces/n-and-ai-dev/config_intent_srlinux1-reroute
 ```
 Configure srlinux2 with /workspaces/n-and-ai-dev/config_intent_srlinux2-reroute
 ```
+
+## Contact:
+
+Huy Q. Tran (huy.h.tranATnokia-bell-labsDOTcom)
