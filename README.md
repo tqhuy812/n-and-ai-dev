@@ -29,7 +29,7 @@ From client 1 (iperf client)
 iperf3 -c 10.0.2.2 -t 10000 -p 5201 -B 10.0.1.2 -b 2M -M 1460 &
 ```
 
-# Observe the traffic via Grafana UI
+## Observe the traffic via Grafana UI
 
 Click on the "globe" icon of port 3000 to view the dashboard
 
