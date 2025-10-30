@@ -57,5 +57,6 @@ network-instance:
           next-hop-group: client1
 
 bfd:
-  - subinterface: ethernet-1/2.0
-    admin-state: enable
+  subinterface: 
+    - id: ethernet-1/2.0
+      admin-state: enable
