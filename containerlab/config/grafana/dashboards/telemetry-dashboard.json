@@ -143,7 +143,7 @@
           "useBackend": false
         }
       ],
-      "title": "Panel Title",
+      "title": "Bidirectional Forwarding Detection (BFD)",
       "type": "timeseries"
     },
     {
