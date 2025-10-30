@@ -5,7 +5,7 @@
 ## Apply srlinux2 initial configuration using gnmic:
 
 ```
-gnmic -a clab-3srlinux_2clients-srlinux:57400 -u admin -p NokiaSrl1! --skip-verify --encoding json_ietf set --update-path / --update-file containerlab/config/gnmic/init_config_srlinux2.yaml
+gnmic -a clab-3srlinux_2clients-srlinux2:57400 -u admin -p NokiaSrl1! --skip-verify --encoding json_ietf set --update-path / --update-file containerlab/config/gnmic/init_config_srlinux2.yaml
 ```
 
 ## Verify shortest path
