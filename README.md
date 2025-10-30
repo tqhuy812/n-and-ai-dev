@@ -1,10 +1,11 @@
 # n-and-ai-dev
 
+## Deploy the lab
 
-## Install gnmic (RUN THIS STEP if using slim image (e.g., "image": "ghcr.io/srl-labs/containerlab/devcontainer-dind-slim:0.71.0",))
+## Apply srlinux2 initial configuration using gnmic:
 
 ```
-bash -c "$(curl -sL https://get-gnmic.openconfig.net)"
+gnmic -a clab-1srlinux_2clients-srlinux:57400 -u admin -p NokiaSrl1! --skip-verify --encoding json_ietf set --update-path / --update-file config/gnmic/init_config_srlinux2.yaml
 ```
 
 ## Verify shortest path
