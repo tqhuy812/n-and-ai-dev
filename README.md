@@ -1,6 +1,7 @@
 # n-and-ai-dev
 
 ## Deploy the lab
+Activate the MCP Servers in the Copilot setting
 
 ## Apply srlinux2 initial configuration using gnmic:
 
