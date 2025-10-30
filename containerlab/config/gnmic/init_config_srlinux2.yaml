@@ -50,6 +50,8 @@ network-instance:
               failure-detection:
                 enable-bfd:
                   local-address: 10.0.12.1
+                  local-discriminator: 21
+                  remote-discriminator: 12
 
     static-routes:
       route: 
